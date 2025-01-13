@@ -36,7 +36,7 @@ void insertAtEnd(LIST list, NODE node);
 
 //Inserts the node at the position specified by the user.
 //If successful retuns true, else retuens false.
-bool insertAt(LIST list, NODE node, int position);
+bool insertAt(LIST list, NODE node, unsigned int position);
 
 //Removes the node at the beginning of the list and frees the memory allocated to it.
 //Returns true if a node was removed else retuens false. 
