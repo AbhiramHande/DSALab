@@ -5,16 +5,15 @@
 
 #define LENGTH_OF_STRING 100
 
-void assign_string(char** string){
+char* assign_string(void){
     char* temp = NULL;
     size_t buffer_size = 0;
     printf("Enter new string to add: ");
     if(getline(&temp, &buffer_size, stdin) == -1){
         printf("Error fetching from stdin.\n");
-        return;
+        return NULL;
     }
-    *string = temp;
-    return;
+    return temp;
 }
 
 void add_at_beginning(char*** array, int* size){
@@ -24,9 +23,7 @@ void add_at_beginning(char*** array, int* size){
         return;
     }
 
-    char* string = NULL;
-    assign_string(&string);
-
+    char* string = assign_string();
     if(*size > 1){
         for(int i = *size - 1; i != 0; i--)
             (*array)[i] = (*array)[i-1];
@@ -42,8 +39,7 @@ void add_at_end(char*** array, int* size){
         return;
     }
 
-    char* string;
-    assign_string(&string);
+    char* string = assign_string();
     (*array)[*size - 1] = string;
     return;
 }
@@ -59,30 +55,25 @@ void delete_at(char*** array, int* size){
         return;
     }
 
-    else{
-        free(arr[position - 1]);
-        for(; position != *size; position++)
-            arr[position-1] = arr[position];
-        *array = realloc(*array, (--*size)*sizeof(char*));
-        if(*array == NULL)
-            printf("Error allocating memory. \n");
-        return;
-    }
-
+    free(arr[position - 1]);
+    for(; position != *size; position++)
+        arr[position-1] = arr[position];
+    *array = realloc(*array, (--*size)*sizeof(char*));
+    return;
 }
 
 int main() {
     int size;
     printf("Enter size of the array: ");
     scanf("%d", &size);
+    fgetc(stdin);
+    
     char** string_array = (char**)malloc(size*sizeof(char*)); 
     if (string_array == NULL) 
         printf("Insufficient space.  \n");
 
     for (int i = 0; i < size; i++) {
-        char* string;
-        assign_string(&string);
-        string_array[i] = string;
+        string_array[i] = assign_string();
     }
 
     bool loop = true;
@@ -97,6 +88,7 @@ int main() {
 
         int choice;
         scanf("%d", &choice);
+        fgetc(stdin);
 
         switch(choice) {
             case 1:
@@ -118,7 +110,7 @@ int main() {
             
             case 5:
                 for (int i = 0; i < size; i++)
-                    printf("%s \n", string_array[i]);
+                    printf("%s", string_array[i]);
                 break;
             
             case 6:
