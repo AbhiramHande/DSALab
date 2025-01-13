@@ -6,7 +6,7 @@
 typedef struct student student;
 
 struct student{
-    char ID[LENGTH_OF_ID];
+    char ID[LENGTH_OF_ID+1];
     float CGPA;
 }; 
 
