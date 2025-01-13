@@ -53,12 +53,16 @@ void createCircularLinkedList(LIST l1) {
 
 void printList(LIST l1) {
     NODE temp = l1->head;
+    printf("Printing Linked List: Prints up to the first 30 elements. \n");
     printf("[HEAD] ->");
     for(int i = 0;temp != NULL && i < 30; i++) {
         printf(" %d ->", temp->ele);
         temp = temp->next;
-    }   
-    printf(" [NULL]\n");
+    }
+    if(temp == NULL)
+        printf(" [NULL]\n");
+    else   
+        printf(" ...\n");
     return;
 }
 
@@ -92,15 +96,24 @@ void deleteList(LIST list){
 }
 
 int main() {
-    LIST l = createNewList();
+    LIST l1 = createNewList();
+    LIST l2 = createNewList();
 
     for(int i=1; i<10; i++) {
         NODE n = createNewNode(i);
-        insertFirst(n, l);
+        insertFirst(n, l1);
     }
-    createCircularLinkedList(l);
+    for(int i=1; i<10; i++) {
+        NODE n = createNewNode(i);
+        insertFirst(n, l2);
+    }
+    createCircularLinkedList(l1);
 
-    printList(l);
-    hasCycles(l);
-    deleteList(l);
+    printList(l1);
+    hasCycles(l1);
+    deleteList(l1);
+
+    printList(l2);
+    hasCycles(l2);
+    deleteList(l2);
 }
