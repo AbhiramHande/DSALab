@@ -43,9 +43,26 @@ void insertAtEnd(LIST list, NODE node){
     }    
 }
 
-bool insertAt(LIST list, NODE node, int position){
+bool insertAt(LIST list, NODE node,unsigned int position) {
+    if (position == 0) {
+        node->next = list->head;
+        list->head = node;
+        return true;
+    }
 
+    NODE ptr = list->head;
+    for (int i = 0; ptr != NULL && i++ < position - 1;  ptr = ptr->next);
+    
+    if (ptr == NULL) {
+        fprintf(stderr, "Position out of bounds. \n");
+        return false; 
+    }
+
+    node->next = ptr->next;
+    ptr->next = node;
+    return true;
 }
+
 
 NODE returnNode(LIST list, int position){
     NODE ptr = list->head;
